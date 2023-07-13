@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My First HTML Page</title>
+      </head>
+
+<body>
+<script>
+
+const posts = [
+{title:'Post one', body: 'This is post one',},
+{title:'Post two', body: 'This is post two',}
+];
+
+function getPosts (){
+ setTimeout(() => {
+    let output = '';
+    for (let i = 0; i< posts.length ; i++){
+        output+= `<li> ${posts[i].title} </li>`;
+    }
+    document.body.innerHTML = output; 
+ }, 1000);
+}
+
+function createPost(post){
+   return new Promise ((resolve, reject) => {
+    setTimeout(() => {
+        posts.push(post)
+        const error =false; 
+        if (!error)
+        {
+            resolve();
+        }
+        else
+        {
+            reject("Error: Something went wrong")
+        }
+    },2000);
+    });
+}
+
+function deletePost(){
+  return new Promise ((resolve, reject) => { 
+    setTimeout(() => {
+        if (posts.value !== 0)
+        {
+            resolve(posts.pop());
+        }
+        else
+        {
+            reject('Array is empty now');
+        }
+    }, 1000);
+  })
+}
+
+const user = {
+    username : "yash",
+    lastactivetime : "13/1/2023"
+}
+  function  updateLastActivityTime() {
+  return new Promise((resolve, reject) => {
+      setTimeout(()=>{
+    user.lastactivetime = new Date().getTime();
+    resolve(user.lastactivetime)
+
+      }, 1000)
+      })
+};
+
+createPost({title:'Post three', body:'this is post three'})
+
+Promise.all([createPost, updateLastActivityTime()])
+.then(([createPostResolve,updateLastActivityTimeresolve]) =>{
+    console.log(updateLastActivityTimeresolve)
+})
+.catch(err => console.log(err));
+
+
+//.then(() => {
+//    getPosts()
+ //   deletePost().then(()=>{
+ //       getPosts();
+ //   })
+//})
+//.catch(err => console.log(err))
+//.then(deletePost)
+//.catch(err => console.log(err));
+
+</script>
+</body>
+</html>
